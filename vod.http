@@ -1,0 +1,101 @@
+### GET - wszystkie biblioteki
+GET http://localhost:8080/webapi/libraries
+Accept: application/json
+
+###
+
+### GET - biblioteka po id
+GET http://localhost:8080/webapi/libraries/1
+Accept: application/json
+
+###
+
+### POST - dodanie biblioteki
+POST http://localhost:8080/webapi/libraries
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Biblioteka Testowa",
+  "logo": "https://example.com/logo.png"
+}
+
+###
+
+### GET - wszystkie biblioteki (XML)
+GET http://localhost:8080/webapi/libraries
+Accept: application/xml
+
+###
+
+### GET - biblioteki dla bookId
+GET http://localhost:8080/webapi/books/2/libraries
+Accept: application/json
+
+###
+
+### GET - ksiazki w bibliotece (libraryId)
+GET http://localhost:8080/webapi/libraries/1/books
+Accept: application/json
+
+###
+
+### GET - wszystkie ksiazki
+GET http://localhost:8080/webapi/books
+Accept: application/json
+
+###
+
+### GET - ksiazka po id
+GET http://localhost:8080/webapi/books/1
+Accept: application/json
+
+###
+
+### POST - dodanie ksiazki przez DTO
+POST http://localhost:8080/webapi/books
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Ksiazka Testowa",
+  "cover": "https://example.com/cover.jpg",
+  "rating": 4.2,
+  "authorId": 1
+}
+
+###
+
+### GET - wszystkie ksiazki (XML)
+GET http://localhost:8080/webapi/books
+Accept: application/xml
+
+### GET - biblioteki - test ExceptionHandler
+GET http://localhost:8080/webapi/libraries?phrase=foo
+Accept: application/json
+
+###
+POST http://localhost:8080/webapi/books
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pl
+
+{
+  "title": "blad",
+  "cover": "https://example.com/cover.jpg",
+  "rating": 4.2,
+  "authorId": 1
+}
+
+###
+POST http://localhost:8080/webapi/books
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pl
+
+{
+  "title": "Nowa Ksiazka",
+  "cover": "https://example.com/cover.jpg",
+  "rating": 4.2,
+  "authorId": 999
+}

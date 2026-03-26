@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Autorzy</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <a th:href="@{/authorsView}"><h1>Autorzy</h1></a>
+    <h2 th:text="${title}"></h2>
+    <h3></h3>
+</header>
+
+<section>
+    <table>
+        <tr>
+            <th>Imie</th>
+            <th>Nazwisko</th>
+        </tr>
+        <tr th:each="author : ${authors}">
+            <td th:text="${author.firstName}"></td>
+            <td>
+                <a th:href="@{/booksView(authorId=${author.id})}"
+                   th:text="${author.lastName}"></a>
+            </td>
+        </tr>
+    </table>
+</section>
+
+<div id="orders"></div>
+
+<footer>
+    <span th:text="${tip}"></span>
+</footer>
+
+</body>
+</html>

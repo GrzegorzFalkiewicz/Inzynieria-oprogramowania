@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ksiazki</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <a th:href="@{/booksView}"><h1>Ksiazki</h1></a>
+    <h2 th:text="${title}"></h2>
+    <h3></h3>
+</header>
+
+<section>
+    <table>
+        <tr>
+            <th>Okladka</th>
+            <th>Tytul</th>
+            <th>Autor</th>
+            <th>Ocena</th>
+            <th>Biblioteki</th>
+        </tr>
+        <tr th:each="book : ${books}">
+            <td>
+                <img th:src="${book.cover}" alt="okladka ksiazki"/>
+            </td>
+            <td th:text="${book.title}"></td>
+            <td>
+                <a th:href="@{/booksView(authorId=${book.author.id})}"
+                   th:text="${book.author.firstName + ' ' + book.author.lastName}"></a>
+            </td>
+            <td class="rating" th:text="${book.rating}"></td>
+            <td class="search-container">
+                <a class="search" th:href="@{/librariesView(bookId=${book.id})}">Zobacz biblioteki</a>
+            </td>
+        </tr>
+    </table>
+</section>
+
+<div id="orders"></div>
+
+<footer>
+    <span th:text="${tip}"></span>
+</footer>
+
+</body>
+</html>

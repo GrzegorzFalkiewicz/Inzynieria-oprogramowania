@@ -1,0 +1,21 @@
+# Maven / Java
+target/
+*.class
+*.log
+
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# VS Code
+.vscode/
+
+# Systemowe
+.DS_Store
+Thumbs.db
+
+# Sekrety / lokalne ustawienia
+.env
+application-local.properties
+application-local.yml
