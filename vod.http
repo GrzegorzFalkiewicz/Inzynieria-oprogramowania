@@ -99,3 +99,7 @@ Accept-Language: pl
   "rating": 4.2,
   "authorId": 999
 }
+
+###
+POST http://localhost:8080/actuator/shutdown
+Content-Type: application/json
