@@ -19,3 +19,6 @@ Thumbs.db
 .env
 application-local.properties
 application-local.yml
+
+# Docker / dane bazy
+docker-vod/mysql/data/
