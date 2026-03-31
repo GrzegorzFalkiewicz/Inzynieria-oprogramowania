@@ -1,59 +1,126 @@
-### GET - wszystkie biblioteki
-GET http://localhost:8080/webapi/libraries
+@host = http://localhost:8080
+@adminAuth = Basic YWRtaW46YWRtaW4=
+@userAuth = Basic dXNlcjp1c2Vy
+@badAuth = Basic zG9iYTp6bGE=
+
+###
+# GET - wszystkie biblioteki
+GET {{host}}/webapi/libraries
 Accept: application/json
 
 ###
-
-### GET - biblioteka po id
-GET http://localhost:8080/webapi/libraries/1
+# GET - biblioteka po id
+GET {{host}}/webapi/libraries/1
 Accept: application/json
 
 ###
+# GET - wszystkie biblioteki (XML)
+GET {{host}}/webapi/libraries
+Accept: application/xml
 
-### POST - dodanie biblioteki
-POST http://localhost:8080/webapi/libraries
+###
+# GET - biblioteki dla bookId
+GET {{host}}/webapi/books/2/libraries
+Accept: application/json
+
+###
+# GET - ksiazki w bibliotece (libraryId)
+GET {{host}}/webapi/libraries/1/books
+Accept: application/json
+
+###
+# GET - wszystkie ksiazki
+GET {{host}}/webapi/books
+Accept: application/json
+
+###
+# GET - ksiazka po id
+GET {{host}}/webapi/books/1
+Accept: application/json
+
+###
+# GET - wszystkie ksiazki (XML)
+GET {{host}}/webapi/books
+Accept: application/xml
+
+###
+# GET - biblioteki - test ExceptionHandler
+GET {{host}}/webapi/libraries?phrase=foo
+Accept: application/json
+
+###
+# POST - dodanie biblioteki - bez logowania
+# oczekiwane: 401
+POST {{host}}/webapi/libraries
 Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "Biblioteka Testowa",
+  "name": "Biblioteka Bez Logowania",
   "logo": "https://example.com/logo.png"
 }
 
 ###
-
-### GET - wszystkie biblioteki (XML)
-GET http://localhost:8080/webapi/libraries
-Accept: application/xml
-
-###
-
-### GET - biblioteki dla bookId
-GET http://localhost:8080/webapi/books/2/libraries
+# POST - dodanie biblioteki - user
+# oczekiwane: 403
+POST {{host}}/webapi/libraries
+Authorization: {{userAuth}}
+Content-Type: application/json
 Accept: application/json
 
+{
+  "name": "Biblioteka User",
+  "logo": "https://example.com/logo.png"
+}
 ###
-
-### GET - ksiazki w bibliotece (libraryId)
-GET http://localhost:8080/webapi/libraries/1/books
+# POST - dodanie ksiazki - bez logowania
+# oczekiwane: 401
+POST {{host}}/webapi/books
+Content-Type: application/json
 Accept: application/json
 
-###
+{
+  "title": "Ksiazka Bez Logowania",
+  "cover": "https://example.com/cover.jpg",
+  "rating": 4.2,
+  "authorId": 1
+}
 
-### GET - wszystkie ksiazki
-GET http://localhost:8080/webapi/books
+###
+# POST - dodanie ksiazki - zly login
+# oczekiwane: 401
+POST {{host}}/webapi/books
+Authorization: {{badAuth}}
+Content-Type: application/json
 Accept: application/json
 
-###
+{
+  "title": "Ksiazka Zly Login",
+  "cover": "https://example.com/cover.jpg",
+  "rating": 4.2,
+  "authorId": 1
+}
 
-### GET - ksiazka po id
-GET http://localhost:8080/webapi/books/1
+###
+# POST - dodanie ksiazki - user
+# oczekiwane: 403
+POST {{host}}/webapi/books
+Authorization: {{userAuth}}
+Content-Type: application/json
 Accept: application/json
 
-###
+{
+  "title": "Ksiazka User",
+  "cover": "https://example.com/cover.jpg",
+  "rating": 4.2,
+  "authorId": 1
+}
 
-### POST - dodanie ksiazki przez DTO
-POST http://localhost:8080/webapi/books
+###
+# POST - dodanie ksiazki - admin
+# oczekiwane: sukces
+POST {{host}}/webapi/books
+Authorization: {{adminAuth}}
 Content-Type: application/json
 Accept: application/json
 
@@ -65,17 +132,10 @@ Accept: application/json
 }
 
 ###
-
-### GET - wszystkie ksiazki (XML)
-GET http://localhost:8080/webapi/books
-Accept: application/xml
-
-### GET - biblioteki - test ExceptionHandler
-GET http://localhost:8080/webapi/libraries?phrase=foo
-Accept: application/json
-
-###
-POST http://localhost:8080/webapi/books
+# POST - dodanie ksiazki - test rollback/transakcji
+# oczekiwane: kontrolowany blad, np. 418
+POST {{host}}/webapi/books
+Authorization: {{adminAuth}}
 Content-Type: application/json
 Accept: application/json
 Accept-Language: pl
@@ -88,7 +148,10 @@ Accept-Language: pl
 }
 
 ###
-POST http://localhost:8080/webapi/books
+# POST - dodanie ksiazki - zly authorId
+# oczekiwane: blad walidacji / kontrolowany blad
+POST {{host}}/webapi/books
+Authorization: {{adminAuth}}
 Content-Type: application/json
 Accept: application/json
 Accept-Language: pl
@@ -101,5 +164,8 @@ Accept-Language: pl
 }
 
 ###
-POST http://localhost:8080/actuator/shutdown
+# POST - actuator shutdown
+POST {{host}}/actuator/shutdown
 Content-Type: application/json
+
+{}

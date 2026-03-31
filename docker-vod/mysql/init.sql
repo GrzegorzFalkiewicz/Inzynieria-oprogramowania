@@ -110,11 +110,9 @@ CREATE TABLE role
 );
 
 INSERT INTO user(username, password)
-VALUES ('dbuser1', '$2a$10$eiA5dKnoUk77EKXZhJvq7O3XBy5ECYupA0FCEm0gS58QSY6PoPcOS'),
-       ('dbuser2', '$2a$10$eiA5dKnoUk77EKXZhJvq7O3XBy5ECYupA0FCEm0gS58QSY6PoPcOS'),
-       ('dbuser3', '$2a$10$eiA5dKnoUk77EKXZhJvq7O3XBy5ECYupA0FCEm0gS58QSY6PoPcOS');
+VALUES ('admin', 'admin'),
+       ('user', 'user');
 
 INSERT INTO role(username, role)
-VALUES ('dbuser1', 'USER_ADMIN'),
-       ('dbuser2', 'AUTHOR_ADMIN'),
-       ('dbuser3', 'BOOK_ADMIN');
+VALUES ('admin', 'ROLE_ADMIN'),
+       ('user', 'ROLE_USER');

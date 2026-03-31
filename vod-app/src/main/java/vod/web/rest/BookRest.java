@@ -1,11 +1,12 @@
 package vod.web.rest;
 
-import lombok.extern.slf4j.Slf4j;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
@@ -35,11 +36,14 @@ public class BookRest {
 
     @GetMapping("/books")
     public List<Book> getBooks() {
+        log.info("REST GET /webapi/books");
         return bookService.getAllBooks();
     }
 
     @GetMapping("/books/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable("id") int id) {
+        log.info("REST GET /webapi/books/" + id);
+
         Book book = bookService.getBookById(id);
 
         if (book == null) {
@@ -50,9 +54,13 @@ public class BookRest {
     }
 
     @PostMapping("/books")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addBook(@Valid @RequestBody BookDto bookDto,
                                      Errors errors,
                                      HttpServletRequest request) {
+        log.info("REST POST /webapi/books");
+        log.info("Trying to add book: " + bookDto.getTitle());
+
         if (errors.hasErrors()) {
             Locale locale = localeResolver.resolveLocale(request);
 
