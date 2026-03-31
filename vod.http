@@ -167,5 +167,8 @@ Accept-Language: pl
 # POST - actuator shutdown
 POST {{host}}/actuator/shutdown
 Content-Type: application/json
+Authorization: {{adminAuth}}
+Content-Type: application/json
+Accept: application/json
 
 {}
