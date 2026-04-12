@@ -56,11 +56,4 @@ Projekt rozwija umiejętności związane z:
 - Git / GitHub
 - HTTP Client (`.http`)
 
-## Struktura repozytorium
 
-```text
-library-management-spring-boot/
-├── docker-vod/       # pliki związane ze środowiskiem bazy danych
-├── vod-app/          # główna aplikacja Spring Boot
-├── vod.http          # przykładowe zapytania HTTP do testowania endpointów
-└── README.md
