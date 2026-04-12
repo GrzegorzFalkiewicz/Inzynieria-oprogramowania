@@ -1,0 +1,1 @@
+A Java 17 and Spring Boot 3.1.4 web application for managing books and libraries. Includes REST endpoints, JSON/XML support, validation, Thymeleaf views, JPA/MySQL persistence, role-based security, Actuator, and HTTP request tests.
